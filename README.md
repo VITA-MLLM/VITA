@@ -2,7 +2,7 @@
 
 
 <p align="center">
-    <img src="./asset/vita_log.png" width="100%" height="100%">
+    <img src="./asset/vita_log2.png" width="100%" height="100%">
 </p>
 
 <font size=7><div align='center' > [[🍎 Project Page]()] [[📖 arXiv Paper]()] [[🤗 Model Weights]()]  </div></font>
