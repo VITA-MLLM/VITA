@@ -5,7 +5,7 @@
     <img src="./asset/vita_log2.png" width="100%" height="100%">
 </p>
 
-<font size=7><div align='center' > [[🍎 Project Page](https://vita-home.github.io/)] [[📖 arXiv Paper](https://github.com/VITA-MLLM/VITA)] [[🤗 Model Weights [Coming Soon]](https://github.com/VITA-MLLM/VITA)]  </div></font>
+<font size=7><div align='center' > [[🍎 Project Page](https://vita-home.github.io/)]  [[📖 arXiv Paper](https://github.com/VITA-MLLM/VITA)]  </div></font>
 
 
 ---
