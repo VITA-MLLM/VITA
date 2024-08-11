@@ -5,14 +5,13 @@
     <img src="./asset/vita_log2.png" width="100%" height="100%">
 </p>
 
-<font size=7><div align='center' > [[🍎 Project Page]()] [[📖 arXiv Paper]()] [[🤗 Model Weights]()]  </div></font>
+<font size=7><div align='center' > [[🍎 Project Page]()] [[📖 arXiv Paper]()] [[🤗 Model Weights [Release Soon]]()]  </div></font>
 
 
 ---
 
 ## 🔥 News
-* **`2024.08.12`** 🌟 We launch VITA, the **First-Ever** open-source interactive omni multimodal LLM! All training code, deployment code, and weights will be open sourced soon! The open source process requires some flow, stay tuned!
-
+* **`2024.08.12`** 🌟 We are very proud to launch VITA, the **First-Ever** open-source interactive omni multimodal LLM! All training code, deployment code, and model weights will be released soon! The open source process requires some flow, stay tuned!
 
 
 ## 👀 VITA Overview
