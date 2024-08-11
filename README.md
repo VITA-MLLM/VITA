@@ -11,7 +11,7 @@
 ---
 
 ## 🔥 News
-* **`2024.08.12`** 🌟 We launch VITA, the first-ever open-source interactive omni multimodal LLM!
+* **`2024.08.12`** 🌟 We launch VITA, the **First-Ever** open-source interactive omni multimodal LLM!
 
 
 
