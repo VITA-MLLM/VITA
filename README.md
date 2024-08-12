@@ -65,7 +65,7 @@ If you find our work helpful for your research, please consider citing our work.
 @article{fu2024vita,
   title={VITA: Towards Open-Source Interactive Omni Multimodal LLM},
   author={Fu, Chaoyou and Lin, Haojia and Long, Zuwei and Shen, Yunhang and Zhao, Meng and Zhang, Yifan and Wang, Xiong and Yin, Di and Ma, Long and Zheng, Xiawu and He, Ran and Ji, Rongrong and Wu, Yunsheng and Shan, Caifeng and Sun, Xing},
-  journal={arXiv preprint arXiv:2408},
+  journal={arXiv preprint arXiv:2408.05211},
   year={2024}
 }
 ```
