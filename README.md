@@ -11,7 +11,7 @@
 ---
 
 ## 🔥 News
-* **`2024.08.12`** 🌟 We are very proud to launch VITA, the **First-Ever** open-source interactive omni multimodal LLM! All training code, deployment code, and model weights will be released soon! The open source process requires some flow, stay tuned!
+* **`2024.08.12`** 🌟 We are very proud to launch VITA, the **First-Ever** open-source interactive omni multimodal LLM! All training code, deployment code, and model weights will be released soon! **We have submitted the open source code, but it is under review internally. We are moving the process forward as quickly as possible, stay tuned!**
 
 
 ## 👀 VITA Overview
