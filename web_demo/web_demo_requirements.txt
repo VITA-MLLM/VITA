@@ -1,4 +1,5 @@
 decord==0.6.0
+fastapi==0.112.2
 ffmpeg-python==0.2.0
 ffmpy==0.4.0
 gradio==4.42.0
@@ -6,6 +7,7 @@ numpy==1.26.4
 onnxruntime==1.16.3
 opencv-python==4.10.0.84
 pyaudio==0.2.14
+pydantic==2.8.2
 shortuuid==1.0.13
 tencentcloud-sdk-python-tts
 torch==2.4.0
