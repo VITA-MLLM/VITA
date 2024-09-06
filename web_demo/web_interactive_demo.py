@@ -933,7 +933,7 @@ if __name__ == "__main__":
 
     interrupt_signal = manager.Value("i", 0)
 
-    model_path = "your_model_path/"
+    model_path = "demo_VITA_ckpt/"
 
     global_history = manager.list()
     global_history_limit = 1
