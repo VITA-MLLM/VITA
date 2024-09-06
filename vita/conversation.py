@@ -66,7 +66,7 @@ class Conversation:
             seps = [self.sep, self.sep2]
             has_image = False
             for i, (role, message) in enumerate(messages):
-                if "<image>" in message:
+                if message and "<image>" in message:
                     has_image = True
                     break
             if has_image:
