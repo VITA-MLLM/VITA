@@ -74,15 +74,15 @@ def tokenizer_image_audio_token(
     prompt,
     tokenizer,
     image_token_index=IMAGE_TOKEN_INDEX,
-    audio_token_inde=AUDIO_TOKEN_INDEX,
+    audio_token_index=AUDIO_TOKEN_INDEX,
     return_tensors=None,
 ):
     prompt_chunks = []
     for chunk in re.split(r"(<audio>|<image>)", prompt):
         if chunk == "<audio>":
-            prompt_chunks.append([AUDIO_TOKEN_INDEX])
+            prompt_chunks.append([audio_token_index])
         elif chunk == "<image>":
-            prompt_chunks.append([IMAGE_TOKEN_INDEX])
+            prompt_chunks.append([image_token_index])
         else:
             prompt_chunks.append(tokenizer(chunk).input_ids)
 
@@ -97,7 +97,7 @@ def tokenizer_image_audio_token(
         input_ids.append(prompt_chunks[0][0])
 
     for x in prompt_chunks:
-        if x != [IMAGE_TOKEN_INDEX] and x != [AUDIO_TOKEN_INDEX]:
+        if x != [image_token_index] and x != [audio_token_index]:
             input_ids.extend(x[offset:])
         else:
             input_ids.extend(x[:])
