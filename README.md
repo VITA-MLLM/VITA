@@ -203,13 +203,14 @@ Since VITA has not yet been integrated into vLLM, you need to make some modifica
 
 ```bash
 conda create -n vita_demo python==3.10
+conda activate vita_demo
 pip install -r web_demo/web_demo_requirements.txt
 
 # Backup a new weight file
 cp -r  VITA_ckpt/ demo_VITA_ckpt/
 
 cd ./web_demo/vllm_tools
-cp -rf model_weight_file/*  demo_VITA_ckpt/
+cp -rf model_weight_file/*  ../../demo_VITA_ckpt/
 cp -rf vllm_file/*  your_anaconda/envs/vita_demo/lib/python3.10/site-packages/vllm/model_executor/models/
 ```
 
