@@ -113,7 +113,7 @@ pip install flash-attn --no-build-isolation
 ]
 ```
 
-- The `set` field is used to retrieve the image or video folder for data loading. You should add its key-value pair to the `FolderDict` in `vita/config/dataset_config.py`:
+- The `set` field is used to retrieve the image or video folder for data loading. You should add its key-value pair to the `FolderDict` in [./vita/config/dataset_config.py](./vita/config/dataset_config.py):
 ```
 AudioFolder = ""
 FolderDict = {
@@ -124,9 +124,9 @@ FolderDict = {
 ShareGPT4V = {"chat_path": ""}
 ```
 
-- Set the JSON path for `"chat_path"` in the corresponding dictionary in [vita/config/dataset_config.py](./vita/config/dataset_config.py).
-- Set the audio folder path for `AudioFolder` in [vita/config/dataset_config.py](./vita/config/dataset_config.py).
-- Add the data class in `DataConfig` in [vita/config/__init__.py](./vita/config/__init__.py):
+- Set the JSON path for `"chat_path"` in the corresponding dictionary in [./vita/config/dataset_config.py](./vita/config/dataset_config.py).
+- Set the audio folder path for `AudioFolder` in [./vita/config/dataset_config.py](./vita/config/dataset_config.py).
+- Add the data class in `DataConfig` in [./vita/config/init.py](./vita/config/__init__.py):
 ```
 from .dataset_config import *
 
@@ -141,7 +141,7 @@ DataConfig = {
 ### Continual Training
 - Download the required weights: (1) [VITA checkpoint](https://huggingface.co/VITA-MLLM/VITA), (2) [InternViT-300M-448px](https://huggingface.co/OpenGVLab/InternViT-300M-448px), and (3) [Our pretrained audio encoder](https://huggingface.co/VITA-MLLM/VITA) in Stage-2 audio-language alignment (refer to Fig. 3 in the paper).
 
-- Replace the paths in [script/train/finetuneTask_nodes.sh](./script/train/finetuneTask_nodes.sh):
+- Replace the paths in [./script/train/finetuneTask_nodes.sh](./script/train/finetuneTask_nodes.sh):
 ```
     ...
     --model_name_or_path VITA_ckpt \
@@ -233,7 +233,7 @@ python -m web_demo.web_ability_demo  demo_VITA_ckpt/
 To have a good interactive experience, please pay attention to the following three points:
 
 - **Ensure a high-speed network connection**.
-- **Use high-performance GPUs for deployment**. In the demo video, we use 4 Nvidia H20 GPUs. A800, H800, or A800 will be much better.
+- **Use high-performance GPUs for deployment**. In the demo video, we use 4 Nvidia H20 GPUs. A800, H800, or A100 will be much better.
 - **Maintain a quiet environment**.
 
 <p align="center">
