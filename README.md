@@ -10,6 +10,10 @@
 
 ---
 
+<p align="center">
+    <img src="./asset/vita.png" width="85%" height="85%">
+</p>
+
 ## 🔥 News
 * **`2024.09.06`** 🌟 The training code, deployment code, and model weights **have been released**. Long wait!
 * **`2024.08.12`** 🌟 We are very proud to launch VITA, the First-Ever open-source interactive omni multimodal LLM! We have submitted the open-source code, yet it is under review internally. We are moving the process forward as quickly as possible, stay tuned!
@@ -33,10 +37,6 @@
 
 
 ## 👀 VITA Overview
-<p align="center">
-    <img src="./asset/vita.png" width="82%" height="82%">
-</p>
-
 The remarkable multimodal capabilities and interactive experience of GPT-4o underscore their necessity in practical applications, yet open-source models rarely excel in both areas. In this paper, we introduce **VITA**, the first-ever open-source Multimodal Large Language Model (MLLM) adept at simultaneous processing and analysis of **V**ideo, **I**mage, **T**ext, and **A**udio modalities, and meanwhile has an advanced multimodal interactive experience. Our work distinguishes from existing open-source MLLM through **three key features**:
 
 - **Omni Multimodal Understanding**. VITA demonstrates robust foundational capabilities of multilingual, vision, and audio understanding, as evidenced by its strong performance across a range of both unimodal and multimodal benchmarks.  
