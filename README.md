@@ -61,7 +61,7 @@ VITA is capable of processing inputs in the form of pure text/audio, as well as 
 </p>
 
 
-- **Evaluation on ASR tasks.**
+- **Evaluation of Error Rate on ASR tasks.**
 
 <p align="center">
     <img src="./asset/audio_eval.jpg" width="96%" height="96%">
