@@ -34,7 +34,7 @@
 
 ## 👀 VITA Overview
 <p align="center">
-    <img src="./asset/vita.png" width="88%" height="88%">
+    <img src="./asset/vita.png" width="82%" height="82%">
 </p>
 
 The remarkable multimodal capabilities and interactive experience of GPT-4o underscore their necessity in practical applications, yet open-source models rarely excel in both areas. In this paper, we introduce **VITA**, the first-ever open-source Multimodal Large Language Model (MLLM) adept at simultaneous processing and analysis of **V**ideo, **I**mage, **T**ext, and **A**udio modalities, and meanwhile has an advanced multimodal interactive experience. Our work distinguishes from existing open-source MLLM through **three key features**:
