@@ -64,13 +64,13 @@ VITA is capable of processing inputs in the form of pure text/audio, as well as 
 - **Evaluation on ASR tasks.**
 
 <p align="center">
-    <img src="./asset/audio_eval.png" width="96%" height="96%">
+    <img src="./asset/audio_eval.jpg" width="96%" height="96%">
 </p>
 
 - **Evaluation on image and video understanding.**
 
 <p align="center">
-    <img src="./asset/vision_eval.png" width="96%" height="96%">
+    <img src="./asset/visual_eval.jpg" width="100%" height="100%">
 </p>
 
 
