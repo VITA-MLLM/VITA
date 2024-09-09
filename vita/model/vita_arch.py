@@ -176,14 +176,12 @@ class VITAMetaForCausalLM(ABC):
 
         if type(images) is list or images.ndim == 5:
             concat_images = torch.cat([image for image in images], dim=0)
-            # image_features = self.encode_images(concat_images)
-            image_features = self.encode_images_frameCat(concat_images)
+            image_features = self.encode_images(concat_images)
             split_sizes = [image.shape[0] for image in images]
             image_features = torch.split(image_features, split_sizes, dim=0)
             image_features = [x.flatten(0, 1).to(self.device) for x in image_features]
         else:
-            # image_features = self.encode_images(images).to(self.device)
-            image_features = self.encode_images_frameCat(images).to(self.device)
+            image_features = self.encode_images(images).to(self.device)
 
         audio_encoder = self.get_audio_encoder()
         # audio_features = audio_encoder(audios['audios'], audios['lengths'])
