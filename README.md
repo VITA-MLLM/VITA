@@ -214,7 +214,7 @@ pip install -r web_demo/web_demo_requirements.txt
 cp -r  VITA_ckpt/ demo_VITA_ckpt/
 
 cd ./web_demo/vllm_tools
-cp -rf model_weight_file/*  ../../demo_VITA_ckpt/
+cp -rfL model_weight_file/*  ../../demo_VITA_ckpt/
 cp -rf vllm_file/*  your_anaconda/envs/vita_demo/lib/python3.10/site-packages/vllm/model_executor/models/
 ```
 
