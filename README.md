@@ -223,9 +223,7 @@ cp -rf vllm_file/*  your_anaconda/envs/vita_demo/lib/python3.10/site-packages/vl
 
 #### 📍 Basic Demo
 
-<p align="center">
-    <img src="./asset/demo1.jpg" width="88%" height="88%">
-</p>
+https://github.com/user-attachments/assets/bdc7e9d1-a7d3-432e-aae8-5de493a5c042
 
 
 ```bash
@@ -241,9 +239,8 @@ To have a good interactive experience, please pay attention to the following thr
 - **Use high-performance GPUs for deployment**. In the demo video, we use 4 Nvidia H20 GPUs. A800, H800, or A100 will be much better.
 - **Maintain a quiet environment**.
 
-<p align="center">
-    <img src="./asset/demo2.jpg" width="88%" height="88%">
-</p>
+https://github.com/user-attachments/assets/5f375464-a77c-4dce-b2b5-7897c230bb9b
+
 
 To run the real-time interactive demo, you need to make the following preparations:
 
