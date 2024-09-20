@@ -227,9 +227,6 @@ cp -rf vllm_file/*  your_anaconda/envs/vita_demo/lib/python3.10/site-packages/vl
     <img src="./asset/demo1.jpg" width="88%" height="88%">
 </p>
 
-<p align="center">
-    https://github.com/VITA-MLLM/VITA/blob/main/asset/demo_1.mp4
-</p>
 
 ```bash
 python -m web_demo.web_ability_demo  demo_VITA_ckpt/
