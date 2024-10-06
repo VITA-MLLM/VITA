@@ -211,7 +211,7 @@ conda activate vita_demo
 pip install -r web_demo/web_demo_requirements.txt
 
 # Backup a new weight file
-cp -r  VITA_ckpt/ demo_VITA_ckpt/
+cp -rL  VITA_ckpt/ demo_VITA_ckpt/
 
 cd ./web_demo/vllm_tools
 cp -rf model_weight_file/*  ../../demo_VITA_ckpt/
