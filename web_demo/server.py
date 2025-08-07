@@ -25,7 +25,8 @@ from flask_socketio import SocketIO, disconnect, emit
 from web_demo.vita_html.web.parms import GlobalParams
 from web_demo.vita_html.web.pem import generate_self_signed_cert
 
-
+from flask import request
+from flask_socketio import join_room
 def get_args():
     parser = argparse.ArgumentParser(description='VITA')
     parser.add_argument('--model_path', help='model_path to load', default='../VITA_ckpt')
@@ -854,6 +855,11 @@ def handle_recording_stopped():
         disconnect()
     print('Recording stopped')
 
+@socketio.on('join')
+def on_join(data):
+    room_name = data['room']
+    join_room(room_name)
+    print(f"客户端 {request.sid} 已加入房间 '{room_name}'")
 
 @socketio.on('audio')
 def handle_audio(data):
@@ -886,6 +892,7 @@ def handle_audio(data):
                         if last_text != text:
                             print(f"New text: {text}")
                             socketio.emit('response_text', {'text': text}, to=sid)
+                            socketio.emit('response_text', {'text': text}, room='bridge_listeners')
                         last_text = text
                         last_tts_model_id = llm_id
                 except Empty:
