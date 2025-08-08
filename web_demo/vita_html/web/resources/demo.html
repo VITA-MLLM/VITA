@@ -103,7 +103,24 @@
                 width: 100%;
                 height: auto;
             }
-            
+            .text-container {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            min-height: 50px; /* 保证即使没内容也有一定高度 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            #text {
+                font-size: 18px;
+                color: #333;
+                margin: 0;
+                text-align: left;
+                width: 100%;
+            }
             h1 {
                 font-size: 24px;
                 margin: 10px 0;
@@ -133,6 +150,10 @@
             <video id="videoElement" autoplay playsinline style="display: none;"></video>
             <canvas id="videoCanvas" width="600" height="360"></canvas>
             <canvas id="hiddenCanvas" width="1280" height="768" style="display: none;"></canvas>
+        </div>
+        <h3>Text</h3>
+        <div class="text-container">
+            <p id="text"></p>
         </div>
         <h3>Input Waveform</h3>
         <canvas id="inputCanvas" width="600" height="50"></canvas>
@@ -208,7 +229,10 @@
                     currentSource = null;
                 }
                 isPlaying = false;
-                
+                const textElement = document.getElementById('text');
+                if (textElement) {
+                    textElement.textContent = ''; // 开始新对话时清空旧文本
+                }
                 // 确保之前的 audioContext 完全关闭
                 if (audioContext) {
                     await audioContext.close();
@@ -353,6 +377,13 @@
             audioQueue.push(data);
             if (!isPlaying) {
                 playNextAudio();
+            }
+        });
+
+        socket.on('response_text', function(data) {
+        const textElement = document.getElementById('text');
+        if (textElement) {
+            textElement.textContent = data.text;
             }
         });
 
@@ -501,6 +532,10 @@
             stopRecording();
             stopVideo();
             stopTTS();
+            const textElement = document.getElementById('text');
+            if (textElement) {
+                textElement.textContent = ''; // 清除历史时也清空文本
+            }
             showTemporaryAlert('对话历史已清除');
             playNextAudio();
         }
