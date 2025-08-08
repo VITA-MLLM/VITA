@@ -69,6 +69,11 @@ IMAGE_TOKEN = "<image>"
 AUDIO_TOKEN = "<audio>"
 VIDEO_TOKEN = "<video>"
 
+# 对话模板前缀和结束符
+USER_PREFIX = "<|im_start|>user\n"
+BOT_PREFIX = "<|im_start|>assistant\n"
+EOS = "<|im_end|>\n"
+
 # change print function to add time stamp
 original_print = builtins.print
 builtins.print = custom_print
@@ -295,6 +300,22 @@ def load_model(
                         f"Number of audio token ids {AUDIO_TOKEN_INDEX} in prompt_token_ids must match the number of audio inputs."
                 else:
                     raise ValueError("Either 'prompt' or 'prompt_token_ids' must be provided.")
+                    
+            if "text" in inputs["multi_modal_data"]:
+                text_inputs = inputs["multi_modal_data"]["text"]
+                if not isinstance(text_inputs, list):
+                    text_inputs = [text_inputs]
+                
+                # 将文本直接添加到提示中，不使用特殊标记
+                if "prompt" in inputs:
+                    # 把文本直接添加到提示的末尾
+                    additional_text = " ".join(text_inputs)
+                    if inputs["prompt"].endswith(BOT_PREFIX):
+                        # 如果提示以机器人前缀结尾，将文本添加到用户部分
+                        inputs["prompt"] = inputs["prompt"].replace(BOT_PREFIX, USER_PREFIX + additional_text + EOS + BOT_PREFIX)
+                    else:
+                        # 否则直接附加到提示的末尾
+                        inputs["prompt"] += " " + additional_text
 
             if "video" in inputs["multi_modal_data"]:
                 video_inputs = inputs["multi_modal_data"]["video"]
@@ -658,22 +679,17 @@ def merge_current_and_history(
             if "video" in current_request["multi_modal_data"]:
                 return system_prompts["video"]
             elif "image" in current_request["multi_modal_data"]:
-                return system_prompts["video"]
+                return system_prompts["image"]
             elif "audio" in current_request["multi_modal_data"]:
                 return system_prompts["audio"]
         return system_prompts["audio"]
 
     system_prompt = select_system_prompt(current_request)
     # print('current request:',current_request)
-    user_prefix = "<|im_start|>user\n"
-    bot_prefix = "<|im_start|>assistant\n"
-    eos = "<|im_end|>\n"
 
     if len(global_history) == 0:
-        current_request["prompt"] = (
-                    system_prompt + user_prefix + current_request["prompt"] + eos + bot_prefix).replace('☞ ',
-                                                                                                        '☞').replace(
-            '☟ ', '☟')
+        
+        current_request["prompt"] = (system_prompt + USER_PREFIX + current_request["prompt"] + EOS + BOT_PREFIX).replace('☞ ','☞').replace('☟ ','☟')
         return current_request
 
     # Initialize the current prompt and multimodal data
@@ -690,7 +706,7 @@ def merge_current_and_history(
         else:
             history_prompt = history["prompt"]
         # print('tag1!!!!!!!!!!!!',history_prompt)
-        history_prompt = user_prefix + history_prompt + eos + bot_prefix + history["response"] + eos
+        history_prompt = USER_PREFIX + history_prompt + EOS + BOT_PREFIX + history["response"] + EOS
         for modality in ["image", "audio", "video"]:
             if skip_history_vision and modality in ["image", "video"]:
                 continue
@@ -700,7 +716,7 @@ def merge_current_and_history(
         current_prompt += history_prompt
     # print('tag2!!!!!!!!!!!!',current_prompt)
     # Add the current request to the current prompt
-    current_prompt += user_prefix + current_request["prompt"] + eos + bot_prefix
+    current_prompt += USER_PREFIX + current_request["prompt"] + EOS + BOT_PREFIX
     for modality in ["image", "audio", "video"]:
         if "multi_modal_data" in current_request and modality in current_request["multi_modal_data"]:
             current_multi_modal_data[modality].extend(current_request["multi_modal_data"][modality])
@@ -713,8 +729,7 @@ def merge_current_and_history(
         num_image_tokens = current_prompt.count(IMAGE_TOKEN)
         current_prompt = current_prompt.replace(IMAGE_TOKEN, "")
         current_prompt = current_prompt.replace(system_prompt, "")
-        current_prompt = system_prompt + user_prefix + IMAGE_TOKEN * num_image_tokens + current_prompt.replace(
-            user_prefix, '')
+        current_prompt = system_prompt + USER_PREFIX + IMAGE_TOKEN * num_image_tokens + current_prompt.replace(USER_PREFIX,'')
     # print('tag4!!!!!!!!!!!!',current_prompt)
     current_request["prompt"] = current_prompt.replace('☞ ', '☞').replace('☟ ', '☟')
     current_request["multi_modal_data"] = current_multi_modal_data
@@ -745,7 +760,11 @@ def send_pcm(sid, request_inputs_queue):
 
         if res is not None:
             if 'start' in res:
-                print(f"Sid: {sid} Vad start")
+                # print(f"Sid: {sid} Vad start")
+                print(f"Sid: {sid} Vad start. Clearing previous text buffer.")
+                # 检查用户状态对象中是否有 text_data 属性
+                if hasattr(connected_users[sid][1], 'text_data'):
+                    connected_users[sid][1].text_data.clear()
 
             elif 'cache_dialog' in res:
                 print(f"Sid: {sid} Vad end")
@@ -770,9 +789,17 @@ def send_pcm(sid, request_inputs_queue):
                     save_video(connected_users[sid][1].collected_images, video_filename)
 
                 print("Start to generate response")
+                
+                # 检查是否有累积的文本数据
+                has_text = hasattr(connected_users[sid][1], 'text_data') and connected_users[sid][1].text_data
+                text_prompt = ""
+                if has_text:
+                    text_prompt = " ".join(connected_users[sid][1].text_data)
+                    print(f"Sid: {sid} Including text data in response: {text_prompt}")
+                
                 if video_filename:
                     current_request = {
-                        "prompt": "<video><audio>",
+                        "prompt": text_prompt + " <video><audio>" if has_text else "<video><audio>",
                         "multi_modal_data": {
                             "video": [video_filename],
                             "audio": [audio_filename],
@@ -780,13 +807,20 @@ def send_pcm(sid, request_inputs_queue):
                     }
                 else:
                     current_request = {
-                        "prompt": "<audio>",
+                        "prompt": text_prompt + " <audio>" if has_text else "<audio>",
                         "multi_modal_data": {
                             "audio": [audio_filename],
                         },
                     }
                 print(f"Start to put request into queue {current_request}")
                 request_inputs_queue.put(current_request)
+                
+                # 清空暂存的数据
+                if hasattr(connected_users[sid][1], 'text_data'):
+                    connected_users[sid][1].text_data = []
+                if hasattr(connected_users[sid][1], 'audio_data'):
+                    connected_users[sid][1].audio_data = None
+                connected_users[sid][1].collected_images.clear()
 
 
 @app.route('/')
@@ -939,6 +973,29 @@ def handle_video_frame(data):
     else:
         disconnect()
 
+@socketio.on('text_input')
+def handle_text_input(data):
+    sid = request.sid
+    if sid in connected_users:
+        try:
+            # 重置超时计时器
+            connected_users[sid][0].cancel()
+            connected_users[sid][0] = Timer(args.timeout, disconnect_user, [sid])
+            connected_users[sid][0].start()
+            
+            text_data = data.get('text', '')
+            
+            # 存储文本数据以便在VAD完成时使用
+            if not hasattr(connected_users[sid][1], 'text_data'):
+                connected_users[sid][1].text_data = []
+            
+            connected_users[sid][1].text_data.append(text_data)
+            print(f"Sid: {sid} Received text input: {text_data}")
+                
+        except Exception as e:
+            print(f"Error processing text input: {e}")
+    else:
+        disconnect()
 
 @socketio.on('reset_state')
 def handle_reset_state():
